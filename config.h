@@ -1,3 +1,5 @@
+#include <X11/XF86keysym.h>
+
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
@@ -68,28 +70,28 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
-static const char *browsercmd[] = {"chromium", NULL, NULL};
-static const char *musiccmd[] = {"/root/Downloads/QQmusic-1.1.0.AppImage", "--no-sandbox", NULL};
-static const char *upvlo[] = {"/root/scripts/volum-up.sh", NULL};
-static const char *downvlo[] = {"/root/scripts/volum-down.sh", NULL};
-static const char *mutevlo[] = {"/root/scripts/volum-toggle.sh", NULL};
+static const char *browsercmd[] = {"chromium", NULL};
+static const char *upvol[] = {"/home/rain/scripts/volum-up.sh", NULL};
+static const char *downvol[] = {"/home/rain/scripts/volum-down.sh", NULL};
+static const char *mutevol[] = {"/home/rain/scripts/volum-toggle.sh", NULL};
+static const char *oskcmd[] = {"/home/rain/scripts/osk-toggle.sh", NULL};
 static const char *screenshotcmd[] = {"flameshot", "gui", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-        { MODKEY,                       XK_c,      spawn,          {.v = browsercmd } },
-        { MODKEY,                       XK_v,      spawn,          {.v = musiccmd } },
-        { MODKEY,                       XK_bracketleft,spawn,      {.v = downvlo } },
-        { MODKEY,                       XK_backslash,spawn,        {.v = mutevlo } },
-        { MODKEY,                       XK_bracketright,spawn,     {.v = upvlo } },
-        { 0,                            XK_Print,  spawn,          {.v = screenshotcmd} },
+  { MODKEY,                       XK_c,      spawn,          {.v = browsercmd } },
+  { 0,                       XF86XK_AudioLowerVolume,spawn,      {.v = downvol } },
+  { 0,                       XF86XK_AudioMute,spawn,        {.v = mutevol } },
+  { 0,                       XF86XK_AudioRaiseVolume,spawn,     {.v = upvol } },
+  { MODKEY,                       XK_s,      spawn,          {.v = oskcmd } },
+  { 0,                            XK_Print,  spawn,          {.v = screenshotcmd} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,      focusstackhid,  {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      focusstackhid,  {.i = -1 } },
-        { MODKEY|ControlMask,           XK_j,      rotatestack,    {.i = +1 } },
+  { MODKEY|ControlMask,           XK_j,      rotatestack,    {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_k,      rotatestack,    {.i = -1 } },
  
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
